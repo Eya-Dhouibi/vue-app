@@ -1,10 +1,25 @@
 <template>
+  <AppHeader />
+  <HeroSection />
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav>
   <router-view/>
 </template>
+
+<script>
+import AppHeader from '@/components/inc/Header.vue'
+import HeroSection from '@/components/inc/Hero.vue'
+
+export default {
+  name: 'App',
+  components: {
+    AppHeader,
+    HeroSection,
+  },
+};
+</script>
 
 <style>
 #app {
