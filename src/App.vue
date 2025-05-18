@@ -1,18 +1,17 @@
 <template>
-  <AppHeader />
-  <HeroSection />
+  <Navbar />
   <router-view/>
+  <Footer />
 </template>
 
 <script>
-import AppHeader from '@/components/inc/Header.vue'
-import HeroSection from '@/components/inc/Hero.vue'
-
+import Navbar from '@/components/inc/Header.vue'
+import Footer from '@/components/inc/Footer.vue'
 export default {
   name: 'App',
   components: {
-    AppHeader,
-    HeroSection,
+    Navbar,
+    Footer,
   },
 };
 </script>

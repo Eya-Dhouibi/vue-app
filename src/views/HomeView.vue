@@ -1,14 +1,16 @@
 <template>
   <div class="home">
-    <h1>hello</h1>
+    <JuiceCarousel />
   </div>
 </template>
 
 <script>
+import JuiceCarousel from '@/components/inc/Hero.vue'
 
 export default {
   name: 'HomeView',
   components: {
+  JuiceCarousel,
   },
 };
 </script>

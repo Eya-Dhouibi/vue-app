@@ -3,8 +3,36 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
-import BootstrapVue3 from 'bootstrap-vue-3'
+// BootstrapVue3
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap'
 
-createApp(App).use(store).use(BootstrapVue3).use(router).mount('#app');
+// vue-material-design-icons
+import CartIcon from 'vue-material-design-icons/Cart.vue';
+import BellIcon from 'vue-material-design-icons/Bell.vue';
+import AccountCircleIcon from 'vue-material-design-icons/AccountCircle.vue';
+
+// Import Swiper et ses modules
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import SwiperCore from 'swiper';
+SwiperCore.use([Navigation, Pagination, Autoplay]);
+
+// Import global des styles Swiper
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+const app = createApp(App);
+
+app.use(store);
+app.use(router);
+
+app.component('CartIcon', CartIcon);
+app.component('BellIcon', BellIcon);
+app.component('AccountCircleIcon', AccountCircleIcon);
+
+app.component('Swiper', Swiper);
+app.component('SwiperSlide', SwiperSlide);
+
+app.mount('#app');
