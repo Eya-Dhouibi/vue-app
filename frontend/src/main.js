@@ -2,6 +2,8 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
+import axios from './plugins/axios';
+
 
 // BootstrapVue3
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -27,6 +29,8 @@ const app = createApp(App);
 
 app.use(store);
 app.use(router);
+
+app.config.globalProperties.$axios = axios
 
 app.component('CartIcon', CartIcon);
 app.component('BellIcon', BellIcon);
