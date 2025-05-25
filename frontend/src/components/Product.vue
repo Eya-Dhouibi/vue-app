@@ -32,6 +32,8 @@
             <p class="card-text mt-auto">
               Price: {{ prod.price }} TND
             </p>
+              <!-- bouton AddToCart -->
+            <AddToCart :product="product" />
           </div>
         </div>
       </div>
@@ -39,12 +41,17 @@
   </div>
 </template>
 
-
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
+import AddToCart from '@/components/cart/AddToCart.vue'
 
-// Accès au store
+// Props
+defineProps({
+  product: Object,
+})
+
+// Store
 const store = useStore()
 
 // Catégorie sélectionnée
@@ -76,6 +83,7 @@ function filterByCategory(catId) {
 }
 </script>
 
+
 <style scoped>
 .product-name {
   font-weight: 600;
@@ -91,12 +99,5 @@ function filterByCategory(catId) {
 .ant-card {
   height: 420px;
 }
-.price {
-  color: orange;
-}
-.product-title {
-  /* margin-bottom: 40px; */
-  font-size: 35px;
-  font-style: oblique;
-}
+
 </style>
