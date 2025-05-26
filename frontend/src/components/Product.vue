@@ -1,86 +1,58 @@
 <template>
   <div class="container my-5">
-    <h2 class="mb-4">Catégories</h2>
-    <div class="d-flex flex-wrap mb-5 gap-2">
-      <button
-        v-for="cat in categories"
-        :key="cat.id"
-        @click="filterByCategory(cat.id)"
-        type="button"
-        class="btn btn-outline-primary"
-      >
-        {{ cat.name }}
-      </button>
-    </div>
-
     <h2 class="mb-4">Produits</h2>
     <div class="row">
-      <div
-        v-for="prod in filteredProducts"
-        :key="prod.id"
-        class="col-md-4 mb-4"
-      >
-        <div class="card h-100 shadow-sm">
-          <img
-            :src="prod.thumbnail"
-            class="card-img-top"
-            :alt="`Image de ${prod.title}`"
-            style="object-fit: cover; height: 200px;"
-          />
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">{{ prod.title }}</h5>
-            <p class="card-text mt-auto">
-              Price: {{ prod.price }} TND
-            </p>
-              <!-- bouton AddToCart -->
-            <AddToCart :product="product" />
-          </div>
-        </div>
+<div
+  v-for="prod in products"
+  :key="prod.id"
+  class="col-md-4 mb-4"
+>
+  <router-link
+    :to="`/product/${prod.id}`"
+    class="text-decoration-none text-dark"
+  >
+    <div class="card h-100 shadow-sm">
+      <img
+        :src="prod.thumbnail"
+        class="card-img-top"
+        :alt="`Image de ${prod.title}`"
+        style="object-fit: cover; height: 200px;"
+      />
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">{{ prod.title }}</h5>
+        <p class="card-text mt-auto">
+          Price: {{ prod.price }} TND
+        </p>
       </div>
+    </div>
+  </router-link>
+
+  <!-- AddToCart bouton séparé -->
+  <div class="mt-2 text-center">
+    <AddToCart :product="prod" />
+  </div>
+</div>
+
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import {computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import AddToCart from '@/components/cart/AddToCart.vue'
-
-// Props
-defineProps({
-  product: Object,
-})
 
 // Store
 const store = useStore()
 
-// Catégorie sélectionnée
-const selectedCategory = ref(null)
-
 // Appels API au montage du composant
 onMounted(() => {
   store.dispatch('fetchProducts')
-  store.dispatch('fetchCategories')
 })
 
 // Récupération des produits et catégories depuis le store
 const products = computed(() => store.getters.allProducts)
-const categories = computed(() => store.getters.allCategories)
 
-// Filtrage dynamique des produits
-const filteredProducts = computed(() => {
-  if (selectedCategory.value) {
-    return products.value.filter(prod =>
-      prod.categories?.some(cat => cat.id === selectedCategory.value)
-    )
-  }
-  return products.value
-})
-
-// Fonction déclenchée au clic d’une catégorie
-function filterByCategory(catId) {
-  selectedCategory.value = catId
-}
 </script>
 
 
